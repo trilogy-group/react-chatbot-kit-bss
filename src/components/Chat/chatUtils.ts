@@ -31,7 +31,7 @@ export const customMessage = (message: IMessage, customMessages: any) => {
   return false;
 };
 
-export const createChatMessage = (message: string, type: string) => {
+export const createChatMessage = (message: any, type: string) => {
   return {
     message: message,
     type: type,

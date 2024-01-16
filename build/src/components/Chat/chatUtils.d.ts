@@ -3,8 +3,8 @@ export declare const uniqueId: () => number;
 export declare const botMessage: (message: IMessage) => boolean;
 export declare const userMessage: (message: IMessage) => boolean;
 export declare const customMessage: (message: IMessage, customMessages: any) => boolean;
-export declare const createChatMessage: (message: string, type: string) => {
-    message: string;
+export declare const createChatMessage: (message: any, type: string) => {
+    message: any;
     type: string;
     id: number;
 };
@@ -13,7 +13,7 @@ export declare const createChatBotMessage: (message: string, options: IMessageOp
     widget?: string;
     delay?: number;
     payload?: any;
-    message: string;
+    message: any;
     type: string;
     id: number;
 };
@@ -22,7 +22,7 @@ export declare const createCustomMessage: (message: string, type: string, option
     widget?: string;
     delay?: number;
     payload?: any;
-    message: string;
+    message: any;
     type: string;
     id: number;
 };
@@ -31,7 +31,7 @@ export declare const createClientMessage: (message: string, options: IMessageOpt
     widget?: string;
     delay?: number;
     payload?: any;
-    message: string;
+    message: any;
     type: string;
     id: number;
 };

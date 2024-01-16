@@ -12,6 +12,8 @@ import {
 } from './chatUtils';
 
 import ChatIcon from '../../assets/icons/paper-plane.svg';
+import SendIcon from '../../assets/icons/send.svg';
+import UploadIcon from '../../assets/icons/upload.svg';
 
 import './Chat.css';
 import {
@@ -64,6 +66,34 @@ const Chat = ({
   const { messages } = state;
 
   const [input, setInputValue] = useState('');
+  const [selectedImage, setSelectedImage] = useState(null);
+  const fileInputRef = useRef(null);
+  const formRef = useRef(null);
+
+  const handleButtonClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleImageSelect = (event: any) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      // Add image
+      setSelectedImage(reader.result);
+      setState((state: any) => ({
+        ...state,
+        messages: [...state.messages, createChatMessage(reader.result, 'user'), createChatMessage(`Uploaded ${file.name}`, 'user')],
+      }));
+      scrollIntoView();
+      if (parse) {
+        return parse(`Uploaded ${file.name}`);
+      }
+      messageParser.parse(`Uploaded ${file.name}`);
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
 
   const scrollIntoView = () => {
     setTimeout(() => {
@@ -300,6 +330,7 @@ const Chat = ({
 
         <div className="react-chatbot-kit-chat-input-container">
           <form
+            ref={formRef}
             className="react-chatbot-kit-chat-input-form"
             onSubmit={handleSubmit}
           >
@@ -313,7 +344,21 @@ const Chat = ({
               className="react-chatbot-kit-chat-btn-send"
               style={customButtonStyle}
             >
-              <ChatIcon className="react-chatbot-kit-chat-btn-send-icon" />
+              <UploadIcon className="react-chatbot-kit-chat-btn-send-icon" onClick={handleButtonClick} />
+            </button>
+            <input
+              type='file'
+              accept='image/*'
+              onChange={handleImageSelect}
+              ref={fileInputRef}
+              className='react-chatbot-kit-image-input'
+              style={{ display: 'none' }}
+            />
+            <button
+              className="react-chatbot-kit-chat-btn-send"
+              style={customButtonStyle}
+            >
+              <SendIcon className="react-chatbot-kit-chat-btn-send-icon" />
             </button>
           </form>
         </div>
