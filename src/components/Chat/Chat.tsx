@@ -77,13 +77,14 @@ const Chat = ({
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.onload = () => {
+      const base64image = String(reader.result)
       setState((state: any) => ({
         ...state,
-        messages: [...state.messages, createChatMessage(reader.result, 'user')],
+        messages: [...state.messages, createChatMessage(base64image, 'user')],
       }));
       scrollIntoView();
-      if (parse) return parse(String(reader.result));
-      messageParser.parse(String(reader.result));
+      if (parse) return parse(base64image);
+      messageParser.parse(base64image);
     };
     if (file) {
       reader.readAsDataURL(file);
