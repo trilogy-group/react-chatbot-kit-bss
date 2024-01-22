@@ -66,7 +66,6 @@ const Chat = ({
   const { messages } = state;
 
   const [input, setInputValue] = useState('');
-  const [selectedImage, setSelectedImage] = useState(null);
   const fileInputRef = useRef(null);
   const formRef = useRef(null);
 
@@ -78,17 +77,13 @@ const Chat = ({
     const file = event.target.files[0];
     const reader = new FileReader();
     reader.onload = () => {
-      // Add image
-      setSelectedImage(reader.result);
       setState((state: any) => ({
         ...state,
-        messages: [...state.messages, createChatMessage(reader.result, 'user'), createChatMessage(`Uploaded ${file.name}`, 'user')],
+        messages: [...state.messages, createChatMessage(reader.result, 'user')],
       }));
       scrollIntoView();
-      if (parse) {
-        return parse(`Uploaded ${file.name}`);
-      }
-      messageParser.parse(`Uploaded ${file.name}`);
+      if (parse) return parse(String(reader.result));
+      messageParser.parse(String(reader.result));
     };
     if (file) {
       reader.readAsDataURL(file);
