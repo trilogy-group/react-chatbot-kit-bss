@@ -92,12 +92,9 @@ const Chat = ({
   };
 
   const scrollIntoView = () => {
-    setTimeout(() => {
-      if (messageContainerRef.current) {
-        messageContainerRef.current.scrollTop =
-          messageContainerRef?.current?.scrollHeight;
-      }
-    }, 50);
+    if (messageContainerRef.current) {
+      messageContainerRef.current.scrollTop = messageContainerRef?.current?.scrollHeight;
+    }
   };
 
   useEffect(() => {
