@@ -64,8 +64,8 @@ const Chat = ({
   messageContainerRef,
 }: IChatProps) => {
   const { messages } = state;
-
   const [input, setInputValue] = useState('');
+  const textInputRef = useRef(null);
   const fileInputRef = useRef(null);
   const formRef = useRef(null);
 
@@ -82,7 +82,7 @@ const Chat = ({
         ...state,
         messages: [...state.messages, createChatMessage(base64image, 'user')],
       }));
-      scrollIntoView();
+      // scrollIntoView();
       if (parse) return parse(base64image);
       messageParser.parse(base64image);
     };
@@ -92,18 +92,19 @@ const Chat = ({
   };
 
   const scrollIntoView = () => {
-    setTimeout(() => {
-      if (messageContainerRef.current) {
-        messageContainerRef.current.scrollTop =
-          messageContainerRef?.current?.scrollHeight;
-      }
-    }, 50);
+    if (messageContainerRef.current) {
+      messageContainerRef.current.scrollTop = messageContainerRef?.current?.scrollHeight;
+    }
   };
 
   useEffect(() => {
     if (disableScrollToBottom) return;
     scrollIntoView();
-  });
+  }, [messages]);
+
+  useEffect(() => {
+    textInputRef.current.focus();
+  }, [input]);
 
   const showAvatar = (messages: any[], index: number) => {
     if (index === 0) return true;
@@ -272,8 +273,7 @@ const Chat = ({
       ...state,
       messages: [...state.messages, createChatMessage(input, 'user')],
     }));
-
-    scrollIntoView();
+    // scrollIntoView();
     setInputValue('');
   };
 
@@ -335,6 +335,7 @@ const Chat = ({
               placeholder={placeholder}
               value={input}
               onChange={(e) => setInputValue(e.target.value)}
+              ref={textInputRef}
             />
             <button
               className="react-chatbot-kit-chat-btn-send"

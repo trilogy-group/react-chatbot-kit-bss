@@ -1,6 +1,6 @@
 {
   "name": "@trilogy-group/react-chatbot-kit-bss",
-  "version": "2.2.11",
+  "version": "2.2.14",
   "homepage": "https://fredrikoseberg.github.io/react-chatbot-kit-docs/",
   "description": "Fully customizable chatbot kit for react.",
   "main": "build/index.js",
@@ -15,8 +15,8 @@
     "prepare": "yarn run build"
   },
   "author": {
-    "name": "Fredrik Strand Oseberg",
-    "email": "fredrik.no@gmail.com"
+    "name": "Rishabh Raizada",
+    "email": "rishabh.raizada@trilogy.com"
   },
   "devDependencies": {
     "@types/react": "^17.0.21",
@@ -33,6 +33,6 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/FredrikOseberg/react-chatbot-kit"
+    "url": "https://github.com/@trilogy-group/react-chatbot-kit-bss"
   }
 }
